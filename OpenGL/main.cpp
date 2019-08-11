@@ -115,6 +115,7 @@ std::vector<int> DDA_0()
 
 std::vector<int> puntosComunes(std::vector<int> DDA, std::vector<int> BRES) {
 	std::vector<int> puntos;
+	int iguales = 0, porcentaje;
 	for (int i = 0; i < DDA.size(); i = i + 2)
 	{
 
@@ -123,12 +124,23 @@ std::vector<int> puntosComunes(std::vector<int> DDA, std::vector<int> BRES) {
 
 			if (DDA[i] == BRES[j] && DDA[i + 1] == BRES[j + 1])
 			{
+				iguales += 1;
 				puntos.push_back((int)DDA[i]);
 				puntos.push_back((int)DDA[i + 1]);
 			}
 
 
 		}
+	}
+	if (iguales > 0)
+	{
+		porcentaje = (iguales * 100) / DDA.size();
+		cout << "===============================================================\n";
+		cout << "Puntos DDA: " << DDA.size() << endl;
+		cout << "Puntos Bresenham: " << BRES.size() << endl;
+		cout << "Puntos iguales: " << iguales << endl;
+		cout << "Porcentaje de puntos comunes: " << porcentaje <<" %" << endl;
+		cout << "===============================================================\n";
 	}
 	return puntos;
 }
@@ -147,7 +159,7 @@ void DibujarLineas()
 	std::vector<int> DDA;
 	std::vector<int> Bres;
 	glColor3f(1, 0, 0);
-	glPointSize(1.5);
+	/*glPointSize(1.5)*/;
 	std::cout << clic[0] << " ," << clic[1] << "  " << clic[2] << " ," << clic[3] << std::endl;
 	glBegin(GL_POINTS);
 	glVertex2f(20, 20);
