@@ -115,16 +115,16 @@ std::vector<int> DDA_0()
 
 std::vector<int> puntosComunes(std::vector<int> DDA, std::vector<int> BRES) {
 	std::vector<int> puntos;
-	for (int i = 0; i < BRES.size(); i = i + 2)
+	for (int i = 0; i < DDA.size(); i = i + 2)
 	{
 
-		for (int j = 0; j < DDA.size(); j = j + 2)
+		for (int j = 0; j < BRES.size(); j = j + 2)
 		{
 			
-			if (BRES[i] == DDA[j] && BRES[i + 1] == DDA[j + 1])
+			if (DDA[i] == BRES[j] && DDA[i + 1] == BRES[j + 1])
 			{
-				puntos.push_back((int)BRES[i]);
-				puntos.push_back((int)BRES[i+1]);
+				puntos.push_back((int)DDA[i]);
+				puntos.push_back((int)DDA[i+1]);
 			}
 
 		}
