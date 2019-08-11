@@ -20,7 +20,7 @@
 using namespace std;
 
 
- // -------------------------------------------------------
+// -------------------------------------------------------
 int clic[4];
 // -------------------------------------------------------------------------
 void Init()
@@ -120,12 +120,13 @@ std::vector<int> puntosComunes(std::vector<int> DDA, std::vector<int> BRES) {
 
 		for (int j = 0; j < BRES.size(); j = j + 2)
 		{
-			
+
 			if (DDA[i] == BRES[j] && DDA[i + 1] == BRES[j + 1])
 			{
 				puntos.push_back((int)DDA[i]);
-				puntos.push_back((int)DDA[i+1]);
+				puntos.push_back((int)DDA[i + 1]);
 			}
+
 
 		}
 	}
@@ -146,7 +147,7 @@ void DibujarLineas()
 	std::vector<int> DDA;
 	std::vector<int> Bres;
 	glColor3f(1, 0, 0);
-	glPointSize(3);
+	glPointSize(1.5);
 	std::cout << clic[0] << " ," << clic[1] << "  " << clic[2] << " ," << clic[3] << std::endl;
 	glBegin(GL_POINTS);
 	glVertex2f(20, 20);
@@ -201,7 +202,7 @@ void DibujarLineas()
 	glColor3f(0, 0, 1);
 	PrintLine(puntosComun);
 	glEnd();
-	
+
 }
 // -------------------------------------------------------------------------
 void MouseCbk(int button, int state, int x, int y)
