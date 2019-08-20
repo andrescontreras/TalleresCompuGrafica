@@ -579,7 +579,7 @@ void myDisplay(float negativo) {
 
 void myDisplay2(void)
 {
-   
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glViewport(win_data.Width/2, 0, win_data.Width/2, win_data.Height);
 	glMatrixMode(GL_PROJECTION);
 	float aspect1 = (float)win_data.Width / (float)win_data.Height;
@@ -590,7 +590,7 @@ void myDisplay2(void)
 
 
     glViewport(0, 0, win_data.Width/2, win_data.Height);
-	glMatrixMode(GL_PROJECTION);
+	
 	float aspect2 = (float) win_data.Width / (float) win_data.Height;
 	glOrtho(-aspect2, aspect2, -1, 1, -1, 1);
 	glMatrixMode(GL_MODELVIEW);
