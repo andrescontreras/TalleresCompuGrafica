@@ -587,6 +587,7 @@ void myDisplay2(void)
 	glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     myDisplay(0);
+	
 
 
     glViewport(0, 0, win_data.Width/2, win_data.Height);
@@ -597,8 +598,8 @@ void myDisplay2(void)
     glLoadIdentity();
     myDisplay(1);
     glFlush();
-    glutPostRedisplay();
 	printf("aa", win_data.Width);
+	
 
 
 }
@@ -611,6 +612,7 @@ void myResize(int width, int height) {
   glLoadIdentity();
   gluOrtho2D(varOrx, 420/2+varOr2x, varOry,580/2+varOr2y);
   glMatrixMode(GL_MODELVIEW);
+
 
 }
 
@@ -661,6 +663,7 @@ void SpecialKeyboardCbk( int key, int x, int y )
         varOry  = 580/2;
         varOr2y = 580/2;
     }
+	glutPostRedisplay();
     myResize(win_data.Width,win_data.Height);
 }
 int main(int argc, char** argv) {
