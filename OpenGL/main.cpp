@@ -100,6 +100,7 @@ void DrawSquare(GLenum mode)
 void DrawCar(GLenum mode, unsigned int samples, float rc, float gc, float bc, float rll, float gll, float bll, float x, float y)
 {
 	glLoadIdentity();
+	glScalef(0.5, 0.5, 1);
 	glTranslatef(x+-10,y+ 0, 0);
 	glColor3f(rll, gll, bll);
 	glBegin(mode);
@@ -141,6 +142,7 @@ void DrawCar(GLenum mode, unsigned int samples, float rc, float gc, float bc, fl
 void DrawHouse(GLenum mode, float rc, float gc, float bc, float rt, float gt, float bt,float x,float y)
 {
 	glLoadIdentity();
+	glScalef(1.8, 1.8, 1);
 	glTranslatef(x+5, y+5, 0);
 	glColor3f(rc, gc, bc);
 	glBegin(mode);
@@ -261,18 +263,18 @@ void DisplayCbk()
 	glMatrixMode(GL_MODELVIEW);
 	glColor3f(1, 1, 1);
 	
-	DrawCar(GL_POLYGON, 100, COLOR_CARRO, COLOR_LLANTA,0,-6);
-	DrawCar(GL_POLYGON, 100, COLOR_CARRO, COLOR_LLANTA, 15, -6);
-	
+	for (int i = -24; i < 45; i+=15) {
+		DrawCar(GL_POLYGON, 100, COLOR_CARRO, COLOR_LLANTA, i, -6);
+	}
 
 	
 	for (int i = -30; i < 10; i += 2)
 	{
 		DrawTree(GL_POLYGON, COLOR_ARBOL, COLOR_HOJAS, i, -3);
 	}
-	for (int i = -24; i < 16; i += 4)
+	for (int i = -24; i < 8; i += 4)
 	{
-		DrawHouse(GL_POLYGON, COLOR_PARED, COLOR_TECHO, i, -3);
+		DrawHouse(GL_POLYGON, COLOR_PARED, COLOR_TECHO, i, -4);
 	}
 	
 	for (int i = -28; i < 10; i += 8)
