@@ -1,10 +1,4 @@
-#include <GL/glut.h>
-#include <cmath>
-#include <iostream>
-
-// -------------------------------------------------------------------------
-#define _PI      3.1415926535897932
-#define _2PI     6.28318530718
+#include "figuras.h"
 
 float rot1 = 0;
 float rot2 = 0;
@@ -19,223 +13,10 @@ float tra5 = 0;
 float tra6 = 0;
 float camAngleX = 0;
 float camAngleY = 0;
-
 float zoom = 30;
-// -------------------------------------------------------------------------
-void DrawUnitaryCube( )
-{
-  float colors[ 8 ][ 3 ] =
-  {
-    { 1, 0, 0 },
-    { 0, 1, 0 },
-    { 0, 0, 1 },
-    { 0, 1, 1 },
-    { 1, 0, 1 },
-    { 1, 1, 0 },
-    { 0.5, 0.5, 0.5 },
-    { 1, 1, 1 }
-  };
-
-  float points[ 8 ][ 3 ] =
-  {
-    {-0.5, -0.5, -0.5},
-    {0.5, -0.5, -0.5},
-    {-0.5, -0.5, 0.5},
-    { 0.5, -0.5, 0.5 },
-    { -0.5, 0.5, -0.5 },
-    { -0.5, 0.5, 0.5 },
-    { 0.5, 0.5, -0.5 },
-    { 0.5, 0.5, 0.5 }
-  };
-
-  unsigned int faces[ 6 ][ 4 ] =
-  {
-    { 0, 1, 3, 2 },
-    { 0, 2, 5, 4 },
-    { 2, 3, 7, 5 },
-    { 5, 7, 6, 4 },
-    { 1, 6, 7, 3 },
-    { 1, 0, 4, 6 }
-  };
-
-  for( unsigned int i = 0; i < 6; ++i )
-  {
-    glBegin( GL_LINE_LOOP );
-    {
-      for( unsigned int j = 0; j < 4; ++j )
-      {
-        glColor3fv( colors[ faces[ i ][ j ] ] );
-        glVertex3fv( points[ faces[ i ][ j ] ] );
-      } // end for
-    }
-    glEnd( );
-  } // end for
-}
-// -------------------------------------------------------------------------
-void DrawCircle( GLenum mode, unsigned int samples )
-{
-  glBegin( mode );
-  for( unsigned int i = 0; i < samples; ++i )
-  {
-    float t = _2PI * float( i ) / float( samples );
-    glVertex3f(std::cos( t ), 0,std::sin( t ) );
-  } // end if
-  glEnd( );
-}
-// -------------------------------------------------------------------------
-void DrawEllipse( GLenum mode, unsigned int samples,int rx,int ry )
-{
-  glBegin( mode );
-  for( unsigned int i = 0; i < samples; ++i )
-  {
-    float t = _2PI * float( i ) / float( samples );
-    glVertex3f(rx*std::cos( t ), 0,ry*std::sin( t ) );
-  } // end if
-  glEnd( );
-}
-// -------------------------------------------------------------------------
-void DrawUnitaryPyramid( )
-{
-  float colors[ 5 ][ 3 ] =
-  {
-    { 1, 0, 0 },
-    { 0, 1, 0 },
-    { 0, 0, 1 },
-    { 0, 1, 1 },
-    { 1, 0, 1 }
-  };
-
-  float points[ 5 ][ 3 ] =
-  {
-    { -0.5, -0.5, -0.5 },
-    { 0.5, -0.5, -0.5 },
-    { -0.5, -0.5, 0.5 },
-    { 0.5, -0.5, 0.5 },
-    { 0, 0.366, 0 }
-  };
-
-  unsigned int faces[ 5 ][ 4 ] =
-  {
-    {0,1,3,2},
-    {0,2,4,0},
-    {2,3,4,0},
-    {1,4,3,0},
-    {1,0,4,0}
-  };
-
-
-  for( unsigned int j = 0; j < 4; ++j )
-  {
-      glColor3fv( colors[ faces[ 0 ][ j ] ] );
-      glVertex3fv( points[ faces[ 0 ][ j ] ] );
-  } // end for
-  for( unsigned int i = 1; i < 5; ++i )
-  {
-    glBegin( GL_LINE_LOOP );
-    {
-      for( unsigned int j = 0; j < 3; ++j )
-      {
-        glColor3fv( colors[ faces[ i ][ j ] ] );
-        glVertex3fv( points[ faces[ i ][ j ] ] );
-      } // end for
-    }
-    glEnd( );
-  } // end for
-}
-
+bool pause = false;
 
 // -------------------------------------------------------------------------
-void DrawUnitaryOctahedron( )
-{
-  float colors[ 6 ][ 3 ] =
-  {
-    { 1, 0, 0 },
-    { 0, 1, 0 },
-    { 0, 0, 1 },
-    { 0, 1, 1 },
-    { 1, 0, 1 },
-    { 0, 1, 0 }
-  };
-
-  float points[ 6 ][ 3 ] =
-  {
-    { -0.5, 0, -0.5 },
-    { 0.5,  0, -0.5 },
-    { -0.5, 0, 0.5 },
-    { 0.5,  0, 0.5 },
-    { 0, 0.866, 0 },
-    { 0, -0.866, 0}
-  };
-
-  unsigned int faces[ 8 ][ 3 ] =
-  {
-    {0,2,4},
-    {2,3,4},
-    {1,4,3},
-    {1,0,4},
-    {1,5,0},
-    {0,5,2},
-    {2,5,3},
-    {1,3,5}
-  };
-
-
-  for( unsigned int i = 1; i < 8; ++i )
-  {
-    glBegin( GL_LINE_LOOP );
-    {
-      for( unsigned int j = 0; j < 3; ++j )
-      {
-        glColor3fv( colors[ faces[ i ][ j ] ] );
-        glVertex3fv( points[ faces[ i ][ j ] ] );
-      } // end for
-    }
-    glEnd( );
-  } // end for
-}
-// -------------------------------------------------------------------------
-void DrawUnitaryTetrahedron( )
-{
-  float colors[ 4 ][ 3 ] =
-  {
-    { 1, 0, 0 },
-    { 0, 1, 0 },
-    { 0, 0, 1 },
-    { 0, 1, 1 }
-  };
-
-  float points[ 4 ][ 3 ] =
-  {
-    { 0, -0.288, 0.578 },
-    { -0.5, -0.288, -0.288 },
-    { 0.5, -0.288, -0.288 },
-    { 0, 0.578, 0 }
-  };
-
-  unsigned int faces[ 4 ][ 3 ] =
-  {
-    {0,1,2},
-    {0,2,3},
-    {1,3,2},
-    {1,0,3}
-  };
-
-  for( unsigned int i = 1; i < 4; ++i )
-  {
-    glBegin( GL_LINE_LOOP );
-    {
-      for( unsigned int j = 0; j < 3; ++j )
-      {
-        glColor3fv( colors[ faces[ i ][ j ] ] );
-        glVertex3fv( points[ faces[ i ][ j ] ] );
-      } // end for
-    }
-    glEnd( );
-  } // end for
-}
-
-// -------------------------------------------------------------------------
-
 void Init( )
 {
   glClearColor( 0.7, 0.7, 0.7, 0.0 );
@@ -262,19 +43,26 @@ void DisplayCbk( )
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
   glMatrixMode( GL_MODELVIEW );
   float eyeX,eyeY,eyeZ;
+  float hotfix = 1;
+  eyeX = zoom * std::sin(camAngleX*(_PI/180))*std::cos(camAngleY*(_PI/180));
+  eyeY = zoom * -std::sin(camAngleY*(_PI/180));
+  eyeZ = -zoom * std::cos(camAngleX*(_PI/180))*std::cos(camAngleY*(_PI/180));
 
-  eyeX = zoom * sinf(camAngleX*(_PI/180))*cosf(camAngleY*(_PI/180));
-  eyeY = zoom * -sinf(camAngleY*(_PI/180));
-  eyeZ = zoom * cosf(camAngleX*(_PI/180))*cosf(camAngleY*(_PI/180));
+  if(camAngleY >= 0 && camAngleY < 90)
+    hotfix = 1;
+  if(camAngleY >= 90 && camAngleY < 270)
+    hotfix = -1;
+  if(camAngleY >= 270 && camAngleY < 360)
+    hotfix = 1;
   // Camara
   glLoadIdentity( );
-  gluLookAt( eyeX, eyeY, eyeZ, 0, 0, 0, 0, 1, 0 );
+  gluLookAt( eyeX, eyeY, eyeZ, 0, 0, 0, 0, hotfix, 0 );
 
   //Sol
   glPushMatrix( );
   glScalef(2.5,2.5,2.5);
   glRotatef(rot1,0,1,0);
-  DrawUnitaryOctahedron();
+  DrawUnitaryOctahedron(GL_POLYGON,1,1,1);
   glPopMatrix();
 
   //Planeta 1
@@ -293,7 +81,7 @@ void DisplayCbk( )
   glRotatef(40,-20,0,-10);
   glRotatef(rot1,0,1,0);
   glScalef(1.7,1.7,1.7);
-  DrawUnitaryTetrahedron();
+  DrawUnitaryTetrahedron(GL_POLYGON,1,35,1);
   glPopMatrix();
 
   //Planeta 2
@@ -313,7 +101,7 @@ void DisplayCbk( )
       glRotatef(40,0,-20,0);
       glRotatef(rot2,0,1,0);
       glScalef(1.5,1.5,1.5);
-      DrawUnitaryCube();
+      DrawUnitaryCube(GL_POLYGON,1,1,6);
       glPopMatrix();
       //Lunas
         //Anillo Luna 1
@@ -336,7 +124,7 @@ void DisplayCbk( )
           glScalef(0.5,0.5,0.5);
           glRotatef(10,-20,0,-10);
           glRotatef(rot3,0,1,0);
-          DrawUnitaryOctahedron();
+          DrawUnitaryOctahedron(GL_POLYGON,1.5,8,1.2);
           glPopMatrix();
 
   //Planeta 3
@@ -356,7 +144,7 @@ void DisplayCbk( )
       glRotatef(30,10,10,-60);
       glRotatef(rot1,0,1,0);
       glScalef(1.4,1.4,1.4);
-      DrawUnitaryPyramid();
+      DrawUnitaryPyramid(GL_POLYGON,7,1.4,1.2);
       glPopMatrix();
       //Lunas
         //Anillo Luna 1
@@ -377,7 +165,7 @@ void DisplayCbk( )
           glScalef(0.6,0.6,0.6);
           glRotatef(70,30,15,10);
           glRotatef(rot5,0,1,0);
-          DrawUnitaryPyramid();
+          DrawUnitaryPyramid(GL_POLYGON,2,4,1);
           glPopMatrix();
   //Planeta 4
    //Anillo
@@ -396,7 +184,7 @@ void DisplayCbk( )
       glRotatef(60,25,-10,-30);
       glRotatef(rot3,0,1,0);
       glScalef(1.5,1.5,1.5);
-      DrawUnitaryPyramid();
+      DrawUnitaryPyramid(GL_POLYGON,3,3.4,2);
       glPopMatrix();
         //Anillo Luna 1
           glPushMatrix( );
@@ -418,7 +206,7 @@ void DisplayCbk( )
           glScalef(1,1,1);
           glRotatef(40,-20,0,-10);
           glRotatef(rot1,0,1,0);
-          DrawUnitaryTetrahedron();
+          DrawUnitaryTetrahedron(GL_POLYGON,2,2,2);
           glPopMatrix();
         //Anillo Luna 2
           glPushMatrix( );
@@ -439,7 +227,7 @@ void DisplayCbk( )
           glTranslatef(4*std::cos(tra4),0,4*std::sin(tra4));
           glScalef(1,1,1);
           glRotatef(rot2,0,1,0);
-          DrawUnitaryCube();
+          DrawUnitaryCube(GL_POLYGON,3,5.4,2);
           glPopMatrix();
         //Anillo Luna 3
           glPushMatrix( );
@@ -461,7 +249,7 @@ void DisplayCbk( )
           glScalef(1.3,1.3,1.3);
           glRotatef(60,20,14,-40);
           glRotatef(rot5,0,1,0);
-          DrawUnitaryOctahedron();
+          DrawUnitaryOctahedron(GL_POLYGON,1.4,2.5,1.8);
           glPopMatrix();
 
 
@@ -470,102 +258,114 @@ void DisplayCbk( )
   glutSwapBuffers( );
 }
 
+// -------------------------------------------------------------------------
 void IdleCbk()
 {
-    rot1 += 0.3;
-    if(rot1 >=360)
+    if(!pause)
     {
-        rot1 = 0;
+        rot1 += 0.3;
+        if(rot1 >=360)
+        {
+            rot1 = 0;
+        }
+        rot2 += 0.5;
+        if(rot2 >=360)
+        {
+            rot2 = 0;
+        }
+        rot3 += 0.8;
+        if(rot3 >=360)
+        {
+            rot3 = 0;
+        }
+        rot4 += 1.2;
+        if(rot4 >=360)
+        {
+            rot4 = 0;
+        }
+        rot5 += 1.5;
+        if(rot5 >=360)
+        {
+            rot5 = 0;
+        }
+        tra1 +=  0.0006;
+        if(tra1>= 360)
+        {
+            tra1 = 0;
+        }
+        tra2 +=  0.0008;
+        if(tra2>= 360)
+        {
+            tra2 = 0;
+        }
+        tra3 +=  0.001;
+        if(tra3>= 360)
+        {
+            tra3 = 0;
+        }
+        tra4 +=  0.004;
+        if(tra4>= 360)
+        {
+            tra4 = 0;
+        }
+        tra5 +=  0.0065;
+        if(tra5>= 360)
+        {
+            tra5 = 0;
+        }
+        tra6 +=  0.0075;
+        if(tra6>= 360)
+        {
+            tra6 = 0;
+        }
     }
-    rot2 += 0.5;
-    if(rot2 >=360)
-    {
-        rot2 = 0;
-    }
-    rot3 += 0.8;
-    if(rot3 >=360)
-    {
-        rot3 = 0;
-    }
-    rot4 += 1.2;
-    if(rot4 >=360)
-    {
-        rot4 = 0;
-    }
-    rot5 += 1.5;
-    if(rot5 >=360)
-    {
-        rot5 = 0;
-    }
-    tra1 +=  0.0006;
-    if(tra1>= 360)
-    {
-        tra1 = 0;
-    }
-    tra2 +=  0.0008;
-    if(tra2>= 360)
-    {
-        tra2 = 0;
-    }
-    tra3 +=  0.001;
-    if(tra3>= 360)
-    {
-        tra3 = 0;
-    }
-    tra4 +=  0.004;
-    if(tra4>= 360)
-    {
-        tra4 = 0;
-    }
-    tra5 +=  0.0065;
-    if(tra5>= 360)
-    {
-        tra5 = 0;
-    }
-    tra6 +=  0.0075;
-    if(tra6>= 360)
-    {
-        tra6 = 0;
-    }
-
     glutPostRedisplay();
 }
 
+// -------------------------------------------------------------------------
 void SpecialKeyboardCbk( int key, int x, int y )
 {
-    switch (key){
-        case GLUT_KEY_RIGHT:
-        camAngleX += 1;
-        break;
-    case GLUT_KEY_LEFT:
-        camAngleX -= 1;
-        break;
-    case GLUT_KEY_UP:
-        camAngleY += 1;
-        break;
-    case GLUT_KEY_DOWN:
-        camAngleY -= 1;
-        break;
-    }
-    if(camAngleX >= 360)
-    {
-        camAngleX = 0;
-    }
-    else if(camAngleX < 0)
-    {
-        camAngleX = 360+camAngleX;
-    }
-    if(camAngleY >= 360)
-    {
-        camAngleY = 0;
-    }
-    else if(camAngleY < 0)
-    {
-        camAngleY = 360+camAngleY;
-    }
-    std::cout << camAngleY << std::endl;
+        switch (key){
+            case GLUT_KEY_RIGHT:
+            camAngleX += 1;
+            break;
+        case GLUT_KEY_LEFT:
+            camAngleX -= 1;
+            break;
+        case GLUT_KEY_UP:
+            camAngleY += 1;
+            break;
+        case GLUT_KEY_DOWN:
+            camAngleY -= 1;
+            break;
+        }
+        if(camAngleX >= 360)
+        {
+            camAngleX = 0;
+        }
+        else if(camAngleX < 0)
+        {
+            camAngleX = 360+camAngleX;
+        }
+        if(camAngleY >= 360)
+        {
+            camAngleY = 0;
+        }
+        else if(camAngleY < 0)
+        {
+            camAngleY = 360+camAngleY;
+        }
+        if(camAngleY == 90)
+        {
+            camAngleY +=0.5;
+        }
+        if(camAngleY == 270)
+        {
+            camAngleY +=0.5;
+        }
 
 }
+
 // -------------------------------------------------------------------------
 void KeyboardCbk( unsigned char key, int x, int y )
 {
@@ -578,6 +378,28 @@ void KeyboardCbk( unsigned char key, int x, int y )
 
         case 'e':
             zoom -= 5;
+            break;
+
+        case 'Q':
+            zoom += 5;
+            break;
+
+        case 'E':
+            zoom -= 5;
+            break;
+
+        case 'P':
+            if(!pause)
+                pause = true;
+            else
+                pause = false;
+            break;
+
+        case 'p':
+            if(!pause)
+                pause = true;
+            else
+                pause = false;
             break;
     }
 }
@@ -602,3 +424,4 @@ int main( int argc, char* argv[] )
 }
 
 // eof
+

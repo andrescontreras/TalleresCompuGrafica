@@ -1,0 +1,11 @@
+/------------------------------\
+-----------CONTROLES------------
+
+-Utilice las flechas para desplazarse
+por el sistema solar.
+
+- Presione la tecla 'P/p' para pausar
+el sistema solar.
+
+-Puede hacer zoom con las teclas 
+'Q/q'(+) o 'E/e'(-). 
