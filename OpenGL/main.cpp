@@ -1,3 +1,8 @@
+/*
+Integrantes:
+David Herrera
+Andres Contreras
+*/
 /* -------------------------------------------------------------------------
  * @brief Example on how to draw simple 2D shapes
  * @author Leonardo Flórez-Valencia (florez-l@javeriana.edu.co)
@@ -54,10 +59,10 @@ void DrawCircle(GLenum mode, unsigned int samples)
 }
 
 // -------------------------------------------------------------------------
-void DrawCloud(GLenum mode, unsigned int samples, float rn, float gn, float bn,float x,float y)
+void DrawCloud(GLenum mode, unsigned int samples, float rn, float gn, float bn, float x, float y)
 {
 	glLoadIdentity();
-	glTranslatef(x+10, y+13, 0);
+	glTranslatef(x + 10, y + 13, 0);
 	glColor3f(rn, gn, bn);
 	glBegin(mode);
 	for (unsigned int i = 0; i < samples; ++i)
@@ -101,7 +106,7 @@ void DrawCar(GLenum mode, unsigned int samples, float rc, float gc, float bc, fl
 {
 	glLoadIdentity();
 	glScalef(0.5, 0.5, 1);
-	glTranslatef(x+-10,y+ 0, 0);
+	glTranslatef(x + -10, y + 0, 0);
 	glColor3f(rll, gll, bll);
 	glBegin(mode);
 	for (unsigned int i = 0; i < samples; ++i)
@@ -139,11 +144,11 @@ void DrawCar(GLenum mode, unsigned int samples, float rc, float gc, float bc, fl
 	glEnd();
 }
 // -------------------------------------------------------------------------
-void DrawHouse(GLenum mode, float rc, float gc, float bc, float rt, float gt, float bt,float x,float y)
+void DrawHouse(GLenum mode, float rc, float gc, float bc, float rt, float gt, float bt, float x, float y)
 {
 	glLoadIdentity();
 	glScalef(1.8, 1.8, 1);
-	glTranslatef(x+5, y+5, 0);
+	glTranslatef(x + 5, y + 5, 0);
 	glColor3f(rc, gc, bc);
 	glBegin(mode);
 	{
@@ -166,9 +171,9 @@ void DrawHouse(GLenum mode, float rc, float gc, float bc, float rt, float gt, fl
 // -------------------------------------------------------------------------
 // -------------------------------------------------------------------------
 void DrawTree(GLenum mode, float ra, float ga, float ba, float rh, float gh, float bh, float x, float y)
-{	
+{
 	glLoadIdentity();
-	glTranslatef(x+10, y+10, 0);
+	glTranslatef(x + 10, y + 10, 0);
 	glColor3f(ra, ga, ba);
 	glBegin(mode);
 	{
@@ -180,7 +185,7 @@ void DrawTree(GLenum mode, float ra, float ga, float ba, float rh, float gh, flo
 	glEnd();
 	/*glLoadIdentity();*/
 	glColor3f(rh, gh, bh);
-	glTranslatef( 0,  2.10, 0);
+	glTranslatef(0, 2.10, 0);
 	glBegin(mode);
 	{
 		glVertex2f(-1, -_SQRT3_4);
@@ -262,12 +267,12 @@ void DisplayCbk()
 	glMatrixMode(GL_MODELVIEW);
 	glMatrixMode(GL_MODELVIEW);
 	glColor3f(1, 1, 1);
-	
-	for (int i = -24; i < 45; i+=15) {
+
+	for (int i = -24; i < 45; i += 15)
+	{
 		DrawCar(GL_POLYGON, 100, COLOR_CARRO, COLOR_LLANTA, i, -6);
 	}
 
-	
 	for (int i = -30; i < 10; i += 2)
 	{
 		DrawTree(GL_POLYGON, COLOR_ARBOL, COLOR_HOJAS, i, -3);
@@ -276,7 +281,7 @@ void DisplayCbk()
 	{
 		DrawHouse(GL_POLYGON, COLOR_PARED, COLOR_TECHO, i, -4);
 	}
-	
+
 	for (int i = -28; i < 10; i += 8)
 	{
 		DrawCloud(GL_POLYGON, 100, COLOR_NUBE, i, 0);
