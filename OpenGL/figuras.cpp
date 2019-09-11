@@ -62,15 +62,28 @@ void DrawUnitaryCube(GLenum mode, float r, float g, float b )
     { 1, 0, 4, 6 }
   };
 
+
   for( unsigned int i = 0; i < 6; ++i )
   {
     glBegin( mode );
     {
-      for( unsigned int j = 0; j < 4; ++j )
+      if (mode == GL_LINE_LOOP)
       {
-        glColor3fv( colors[ faces[ i ][ j ] ] );
-        glVertex3fv( points[ faces[ i ][ j ] ] );
-      } // end for
+        glColor3f( 0,0,0 );
+        for( unsigned int j = 0; j < 4; ++j )
+        {
+            glVertex3fv( points[ faces[ i ][ j ] ] );
+        } // end for
+      }
+      else
+      {
+        for( unsigned int j = 0; j < 4; ++j )
+        {
+            glColor3fv( colors[ faces[ i ][ j ] ] );
+            glVertex3fv( points[ faces[ i ][ j ] ] );
+        } // end for
+      }
+
     }
     glEnd( );
   } // end for
@@ -116,11 +129,22 @@ void DrawUnitaryPyramid( GLenum mode, float r, float g, float b )
   {
     glBegin( mode );
     {
-      for( unsigned int j = 0; j < 3; ++j )
+      if (mode == GL_LINE_LOOP)
       {
-        glColor3fv( colors[ faces[ i ][ j ] ] );
-        glVertex3fv( points[ faces[ i ][ j ] ] );
-      } // end for
+        glColor3f( 0,0,0 );
+        for( unsigned int j = 0; j < 4; ++j )
+        {
+            glVertex3fv( points[ faces[ i ][ j ] ] );
+        } // end for
+      }
+      else
+      {
+        for( unsigned int j = 0; j < 4; ++j )
+        {
+            glColor3fv( colors[ faces[ i ][ j ] ] );
+            glVertex3fv( points[ faces[ i ][ j ] ] );
+        } // end for
+      }
     }
     glEnd( );
   } // end for
@@ -166,11 +190,22 @@ void DrawUnitaryOctahedron( GLenum mode, float r, float g, float b )
   {
     glBegin( mode );
     {
-      for( unsigned int j = 0; j < 3; ++j )
+      if (mode == GL_LINE_LOOP)
       {
-        glColor3fv( colors[ faces[ i ][ j ] ] );
-        glVertex3fv( points[ faces[ i ][ j ] ] );
-      } // end for
+        glColor3f( 0,0,0 );
+        for( unsigned int j = 0; j < 3; ++j )
+        {
+            glVertex3fv( points[ faces[ i ][ j ] ] );
+        } // end for
+      }
+      else
+      {
+        for( unsigned int j = 0; j < 3; ++j )
+        {
+            glColor3fv( colors[ faces[ i ][ j ] ] );
+            glVertex3fv( points[ faces[ i ][ j ] ] );
+        } // end for
+      }
     }
     glEnd( );
   } // end for
@@ -207,11 +242,22 @@ void DrawUnitaryTetrahedron( GLenum mode, float r, float g, float b )
   {
     glBegin( mode );
     {
-      for( unsigned int j = 0; j < 3; ++j )
+      if (mode == GL_LINE_LOOP)
       {
-        glColor3fv( colors[ faces[ i ][ j ] ] );
-        glVertex3fv( points[ faces[ i ][ j ] ] );
-      } // end for
+        glColor3f( 0,0,0 );
+        for( unsigned int j = 0; j < 3; ++j )
+        {
+            glVertex3fv( points[ faces[ i ][ j ] ] );
+        } // end for
+      }
+      else
+      {
+        for( unsigned int j = 0; j < 3; ++j )
+        {
+            glColor3fv( colors[ faces[ i ][ j ] ] );
+            glVertex3fv( points[ faces[ i ][ j ] ] );
+        } // end for
+      }
     }
     glEnd( );
   } // end for

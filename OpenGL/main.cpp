@@ -14,7 +14,7 @@ float tra6 = 0;
 float camAngleX = 0;
 float camAngleY = 0;
 float zoom = 30;
-bool pause = false;
+bool pause = true;
 
 // -------------------------------------------------------------------------
 void Init( )
@@ -45,8 +45,8 @@ void DisplayCbk( )
   float eyeX,eyeY,eyeZ;
   float hotfix = 1;
   eyeX = zoom * std::sin(camAngleX*(_PI/180))*std::cos(camAngleY*(_PI/180));
-  eyeY = zoom * -std::sin(camAngleY*(_PI/180));
-  eyeZ = -zoom * std::cos(camAngleX*(_PI/180))*std::cos(camAngleY*(_PI/180));
+  eyeY = zoom * std::sin(camAngleY*(_PI/180));
+  eyeZ = zoom * std::cos(camAngleX*(_PI/180))*std::cos(camAngleY*(_PI/180));
 
   if(camAngleY >= 0 && camAngleY < 90)
     hotfix = 1;
@@ -60,198 +60,229 @@ void DisplayCbk( )
 
   //Sol
   glPushMatrix( );
+  //Tamaño de 2.5 en X,Y y Z
   glScalef(2.5,2.5,2.5);
+  //No se encuentra rotado
   glRotatef(rot1,0,1,0);
   DrawUnitaryOctahedron(GL_POLYGON,1,1,1);
+  DrawUnitaryOctahedron(GL_LINE_LOOP,1,1,1);
   glPopMatrix();
 
   //Planeta 1
    //Anillo
   glPushMatrix( );
   glColor3f(0.4, 0.254, 0.0392);
+  //Orbita circular de tamaño 4
   glScalef(4,4,4);
-  glRotatef(40,20,20,10);
+  //Orbita rotada 40° en X,Y y Z
+  glRotatef(40,1,1,1);
   DrawCircle(GL_LINE_LOOP,100);
   glPopMatrix();
    //Planeta
   glPushMatrix( );
-  glRotatef(40,20,20,10);
+  glColor3f(0.4, 0.254, 0.0392);
+  //Orbita rotada 40° en X,Y y Z
+  glRotatef(40,1,1,1);
+  //Orbita circular de tamaño 4 ; se pone la figura en la orbita
   glTranslatef(4*std::cos(tra2),0,4*std::sin(tra2));
-  glRotatef(40,-20,0,-10);
+  //Se regresa la rotación de la figura a su punto inicial, pero se deja rotada 40° en y
+  glRotatef(40,-1,0,-1);
   glRotatef(rot1,0,1,0);
+  //La figura tiene un tamaño de 1.7
   glScalef(1.7,1.7,1.7);
   DrawUnitaryTetrahedron(GL_POLYGON,1,35,1);
+  DrawUnitaryTetrahedron(GL_LINE_LOOP,1,35,1);
   glPopMatrix();
-
   //Planeta 2
    //Anillo
       glPushMatrix( );
       glColor3f(0.4, 0.254, 0.0392);
-      glScalef(3,3,3);
-      glTranslatef(-0.5,0,0);
-      glRotatef(40,0,20,0);
-      DrawEllipse(GL_LINE_LOOP,100,2,3);
+      //Se desplaza el eje de traslación en x -1.5
+      glTranslatef(-1.5,0,0);
+      //Se Rota la figura 40° en y
+      glRotatef(40,0,1,0);
+      //Elipse de tamaño 6 en x y 8 en y
+      DrawEllipse(GL_LINE_LOOP,100,6,8);
       glPopMatrix();
    //Planeta
       glPushMatrix( );
-      glTranslatef(-0.5,0,0);
-      glRotatef(40,0,20,0);
-      glTranslatef(6*std::cos(tra4),0,9*std::sin(tra4));
-      glRotatef(40,0,-20,0);
+      //Se desplaza el eje de traslación en x -1.5
+      glTranslatef(-1.5,0,0);
+      //Se Rota la figura 40° en y
+      glRotatef(40,0,1,0);
+      //Elipse de tamaño 6 en x y 8 en y
+      glTranslatef(6*std::cos(tra4),0,8*std::sin(tra4));
+      //Se Regresa a la rotación inicial
+      glRotatef(40,0,-1,0);
+      //Se rotan 45° en x , y 
+      glRotatef(45,1,1,0);
       glRotatef(rot2,0,1,0);
-      glScalef(1.5,1.5,1.5);
+      //Figura de tamaño 1.5
+      glScalef(1.5,0.5,1.5);
       DrawUnitaryCube(GL_POLYGON,1,1,6);
+      DrawUnitaryCube(GL_LINE_LOOP,1,1,1);
       glPopMatrix();
       //Lunas
         //Anillo Luna 1
           glPushMatrix( );
           glColor3f(0.4, 0.254, 0.0392);
-          glTranslatef(-0.5,0,0);
-          glRotatef(40,0,20,0);
-          glTranslatef(6*std::cos(tra4),0,9*std::sin(tra4));
-          glRotatef(90,0,-20,90);
+          //Se desplaza el eje de traslación en x -1.5
+          glTranslatef(-1.5,0,0);
+          //Se Rota la figura 40° en y
+          glRotatef(40,0,1,0);
+          //Elipse de tamaño 6 en x y 8 en y
+          glTranslatef(6*std::cos(tra4),0,8*std::sin(tra4));
+          //Una vez ya puesto el anillo de la luna en orbita al planeta, se rota el anillo -90° en y (Es decir 40° - 90° = -50°) y 90° en z
+          glRotatef(90,0,-1,1);
+          //Anillo circular centrado de tamaño 2
           glScalef(2,2,2);
           DrawCircle(GL_LINE_LOOP,100);
           glPopMatrix();
         //Luna 1
           glPushMatrix( );
-          glTranslatef(-0.5,0,0);
-          glRotatef(40,0,20,0);
-          glTranslatef(6*std::cos(tra4),0,9*std::sin(tra4));
-          glRotatef(90,0,-20,90);
+          glTranslatef(-1.5,0,0);
+          glRotatef(40,0,1,0);
+          glTranslatef(6*std::cos(tra4),0,8*std::sin(tra4));
+          glRotatef(90,0,-1,1);
           glTranslatef(2*std::cos(tra2),0,2*std::sin(tra2));
-          glScalef(0.5,0.5,0.5);
-          glRotatef(10,-20,0,-10);
+          //Hasta aqui es el mismo procedimiento de antes, solo que con la consideracion del anillo de la luna
+          glRotatef(10,-1,0,-1);
           glRotatef(rot3,0,1,0);
-          DrawUnitaryOctahedron(GL_POLYGON,1.5,8,1.2);
+          glScalef(0.45,0.45,0.45);
+          DrawUnitaryOctahedron(GL_POLYGON,1,1,1);
+          DrawUnitaryOctahedron(GL_LINE_LOOP,1,1,1);
           glPopMatrix();
 
   //Planeta 3
     //Anillo
       glPushMatrix( );
       glColor3f(0.4, 0.254, 0.0392);
-      glScalef(3,3,3);
-      glTranslatef(0,-0.5,0);
-      glRotatef(90,0,10,90);
-      DrawEllipse(GL_LINE_LOOP,100,3,4);
+      glTranslatef(0,-1.5,0);
+      glRotatef(90,0,1,1);
+      DrawEllipse(GL_LINE_LOOP,100,9,12);
       glPopMatrix();
     //Planeta
       glPushMatrix( );
-      glTranslatef(0,-0.5,0);
-      glRotatef(90,0,10,90);
+      glTranslatef(0,-1.5,0);
+      glRotatef(90,0,1,1);
       glTranslatef(9*std::cos(tra6),0,12*std::sin(tra6));
-      glRotatef(30,10,10,-60);
+      glRotatef(30,1,1,-1);
       glRotatef(rot1,0,1,0);
       glScalef(1.4,1.4,1.4);
       DrawUnitaryPyramid(GL_POLYGON,7,1.4,1.2);
+      DrawUnitaryPyramid(GL_LINE_LOOP,1,1,1);
       glPopMatrix();
       //Lunas
         //Anillo Luna 1
           glPushMatrix( );
           glColor3f(0.4, 0.254, 0.0392);
-          glRotatef(90,0,10,90);
+          glTranslatef(0,-1.5,0);
+          glRotatef(90,0,1,1);
           glTranslatef(9*std::cos(tra6),0,12*std::sin(tra6));
-          glRotatef(90,90,-10,-90);
+          glRotatef(75,1,-1,-1);
           glScalef(1.7,1.5,1.5);
           DrawCircle(GL_LINE_LOOP,100);
           glPopMatrix();
         //Luna 1
           glPushMatrix( );
-          glRotatef(90,0,10,90);
+          glTranslatef(0,-1.5,0);
+          glRotatef(90,0,1,1);
           glTranslatef(9*std::cos(tra6),0,12*std::sin(tra6));
-          glRotatef(90,90,-10,-90);
+          glRotatef(75,1,-1,-1);
           glTranslatef(1.7*std::cos(tra4),0,1.5*std::sin(tra4));
           glScalef(0.6,0.6,0.6);
-          glRotatef(70,30,15,10);
+          glRotatef(70,1,1,1);
           glRotatef(rot5,0,1,0);
           DrawUnitaryPyramid(GL_POLYGON,2,4,1);
+          DrawUnitaryPyramid(GL_LINE_LOOP,1,1,1);
           glPopMatrix();
   //Planeta 4
    //Anillo
       glPushMatrix( );
       glColor3f(0.4, 0.254, 0.0392);
       glTranslatef(0,0,-0.5);
-      glRotatef(60,25,10,30);
+      glRotatef(60,1,1,1);
       glScalef(15,15,15);
       DrawCircle(GL_LINE_LOOP,100);
       glPopMatrix();
     //Planeta
       glPushMatrix( );
-      glTranslatef(0,0,-0.5);
-      glRotatef(60,25,10,30);
+      glTranslatef(0.3,-0.2,-0.5);
+      glRotatef(60,1,1,1);
       glTranslatef(15*std::cos(tra1),0,15*std::sin(tra1));
-      glRotatef(60,25,-10,-30);
+      glRotatef(60,1,-1,-1);
       glRotatef(rot3,0,1,0);
       glScalef(1.5,1.5,1.5);
-      DrawUnitaryPyramid(GL_POLYGON,3,3.4,2);
+      DrawUnitaryOctahedron(GL_POLYGON,1,3.4,2);
+      DrawUnitaryOctahedron(GL_LINE_LOOP,1,1,1);
       glPopMatrix();
         //Anillo Luna 1
           glPushMatrix( );
           glColor3f(0.4, 0.254, 0.0392);
-          glTranslatef(0,0,-0.5);
-          glRotatef(60,25,10,30);
+          glTranslatef(0.3,-0.2,-0.5);
+          glRotatef(60,1,1,1);
           glTranslatef(15*std::cos(tra1),0,15*std::sin(tra1));
-          glRotatef(90,0,0,90);
+          glRotatef(90,0,0,1);
           glScalef(3,3,3);
           DrawCircle(GL_LINE_LOOP,100);
           glPopMatrix();
         //Luna 1
           glPushMatrix( );
-          glTranslatef(0,0,-0.5);
-          glRotatef(60,25,10,30);
+          glTranslatef(0.3,-0.2,-0.5);
+          glRotatef(60,1,1,1);
           glTranslatef(15*std::cos(tra1),0,15*std::sin(tra1));
-          glRotatef(90,0,0,90);
+          glRotatef(90,0,0,1);
           glTranslatef(3*std::cos(tra3),0,3*std::sin(tra3));
           glScalef(1,1,1);
-          glRotatef(40,-20,0,-10);
+          glRotatef(40,-1,0,-1);
           glRotatef(rot1,0,1,0);
-          DrawUnitaryTetrahedron(GL_POLYGON,2,2,2);
+          DrawUnitaryTetrahedron(GL_POLYGON,8,1,1);
+          DrawUnitaryTetrahedron(GL_LINE_LOOP,1,1,1);
           glPopMatrix();
         //Anillo Luna 2
           glPushMatrix( );
           glColor3f(0.4, 0.254, 0.0392);
-          glTranslatef(0,0,-0.5);
-          glRotatef(60,25,10,30);
+          glTranslatef(0.3,-0.2,-0.5);
+          glRotatef(60,1,1,1);
           glTranslatef(15*std::cos(tra1),0,15*std::sin(tra1));
-          glRotatef(70,20,24,90);
+          glRotatef(70,1,1,1);
           glScalef(4,4,4);
           DrawCircle(GL_LINE_LOOP,100);
           glPopMatrix();
         //Luna 2
           glPushMatrix( );
-          glTranslatef(0,0,-0.5);
-          glRotatef(60,25,10,30);
+          glTranslatef(0.3,-0.2,-0.5);
+          glRotatef(60,1,1,1);
           glTranslatef(15*std::cos(tra1),0,15*std::sin(tra1));
-          glRotatef(70,20,24,90);
+          glRotatef(70,1,1,1);
           glTranslatef(4*std::cos(tra4),0,4*std::sin(tra4));
-          glScalef(1,1,1);
           glRotatef(rot2,0,1,0);
-          DrawUnitaryCube(GL_POLYGON,3,5.4,2);
+          DrawUnitaryCube(GL_POLYGON,3,1,2);
+          DrawUnitaryCube(GL_LINE_LOOP,1,1,1);
           glPopMatrix();
         //Anillo Luna 3
           glPushMatrix( );
           glColor3f(0.4, 0.254, 0.0392);
-          glTranslatef(0,0,-0.5);
-          glRotatef(60,25,10,30);
+          glTranslatef(0.3,-0.2,-0.5);
+          glRotatef(60,1,1,1);
           glTranslatef(15*std::cos(tra1),0,15*std::sin(tra1));
-          glRotatef(20,80,54,90);
+          glRotatef(20,1,1,1);
           glScalef(6,6,6);
           DrawCircle(GL_LINE_LOOP,100);
           glPopMatrix();
         //Luna 3
           glPushMatrix( );
-          glTranslatef(0,0,-0.5);
-          glRotatef(60,25,10,30);
+          glTranslatef(0.3,-0.2,-0.5);
+          glRotatef(60,1,1,1);
           glTranslatef(15*std::cos(tra1),0,15*std::sin(tra1));
-          glRotatef(20,80,54,90);
+          glRotatef(20,1,1,1);
           glTranslatef(6*std::cos(tra2),0,6*std::sin(tra2));
-          glScalef(1.3,1.3,1.3);
-          glRotatef(60,20,14,-40);
+          glRotatef(60,1,1,-1);
           glRotatef(rot5,0,1,0);
-          DrawUnitaryOctahedron(GL_POLYGON,1.4,2.5,1.8);
+          glScalef(1.3,1.3,1.3);
+          DrawUnitaryOctahedron(GL_POLYGON,1.4,1,1.8);
+          DrawUnitaryOctahedron(GL_LINE_LOOP,1,1,1);
           glPopMatrix();
-
-
 
   // Finish
   glutSwapBuffers( );
@@ -403,6 +434,11 @@ void KeyboardCbk( unsigned char key, int x, int y )
     }
 }
 
+const GLfloat mat_ambient[]    = { 0.7f, 0.7f, 0.7f, 1.0f };
+const GLfloat mat_diffuse[]    = { 0.8f, 0.8f, 0.8f, 1.0f };
+const GLfloat mat_specular[]   = { 1.0f, 1.0f, 1.0f, 1.0f };
+const GLfloat high_shininess[] = { 100.0f };
+
 // -------------------------------------------------------------------------
 int main( int argc, char* argv[] )
 {
@@ -417,6 +453,7 @@ int main( int argc, char* argv[] )
   glutSpecialFunc( SpecialKeyboardCbk );
   glutIdleFunc( IdleCbk );
   Init( );
+
   glutMainLoop( );
 
   return( 0 );
@@ -424,3 +461,4 @@ int main( int argc, char* argv[] )
 
 // eof
 
+ 
