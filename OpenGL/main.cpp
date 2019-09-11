@@ -75,7 +75,6 @@ void DisplayCbk( )
   glPopMatrix();
    //Planeta
   glPushMatrix( );
-  glColor3f(0.4, 0.254, 0.0392);
   glRotatef(40,20,20,10);
   glTranslatef(4*std::cos(tra2),0,4*std::sin(tra2));
   glRotatef(40,-20,0,-10);
