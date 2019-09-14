@@ -87,9 +87,9 @@ void planeta2()
   //Se desplaza el eje de traslación en x -1.5
   glTranslatef(-1.5, 0, 0);
   //Se Rota la figura 40° en y
-  glRotatef(40, 0, 1, 0);
+  glRotatef(40, 0.1, 1, 0);
   //Elipse de tamaño 6 en x y 8 en y
-  DrawEllipse(GL_LINE_LOOP, 100, 6, 8);
+  DrawEllipse(GL_LINE_LOOP, 100, 6, 8,0,1,0);
   glPopMatrix();
   //Planeta
   glPushMatrix();
@@ -149,7 +149,7 @@ void planeta3()
   glColor3f(0.4, 0.254, 0.0392);
   glTranslatef(0, -1.5, 0);
   glRotatef(90, 0, 1, 1);
-  DrawEllipse(GL_LINE_LOOP, 100, 9, 12);
+  DrawEllipse(GL_LINE_LOOP, 100, 9, 12,1,1,1);
   glPopMatrix();
   //Planeta
   glPushMatrix();
@@ -281,7 +281,7 @@ void planeta4()
 
 void planeta5()
 {
-  float ra = 60, rx = 10, ry = 1, rz = 0;
+  float ra = 125, rx = 10, ry = 1, rz = 7;
   //Planeta 2
   //Anillo
   glPushMatrix();
@@ -291,7 +291,8 @@ void planeta5()
   //Se Rota la figura 40° en y
   glRotatef(ra, rx, ry, rz);
   //Elipse de tamaño 6 en x y 8 en y
-  DrawEllipse(GL_LINE_LOOP, 100, 6, 8);
+  glScalef(1.6, 1.6, 1.6);
+  DrawEllipse(GL_LINE_LOOP, 100, 6, 8,1,0,0);
   glPopMatrix();
   //Planeta
   glPushMatrix();
@@ -300,6 +301,7 @@ void planeta5()
   //Se Rota la figura 40° en y
   glRotatef(ra, rx, ry, rz);
   //Elipse de tamaño 6 en x y 8 en y
+  glScalef(1.6, 1.6, 1.6);
   glTranslatef(6 * std::cos(tra4+8), 0, 8 * std::sin(tra4+8));
   //Se Regresa a la rotación inicial
   glRotatef(40, 0, -1, 0);
@@ -320,6 +322,7 @@ void planeta5()
   //Se Rota la figura 40° en y
   glRotatef(ra, rx, ry, rz);
   //Elipse de tamaño 6 en x y 8 en y
+  glScalef(1.6, 1.6, 1.6);
   glTranslatef(6 * std::cos(tra4+8), 0, 8 * std::sin(tra4+8));
   //Una vez ya puesto el anillo de la luna en orbita al planeta, se rota el anillo -90° en y (Es decir 40° - 90° = -50°) y 90° en z
   glRotatef(90, 0, -1, 1);
@@ -331,6 +334,7 @@ void planeta5()
   glPushMatrix();
   glTranslatef(-1.5, 0, 0);
   glRotatef(ra, rx, ry, rz);
+  glScalef(1.6, 1.6, 1.6);
   glTranslatef(6 * std::cos(tra4+8), 0, 8 * std::sin(tra4+8));
   glRotatef(90, 0, -1, 1);
   glTranslatef(2 * std::cos(tra2), 0, 2 * std::sin(tra2));
@@ -356,7 +360,7 @@ void planeta6()
   //Se Rota la figura 40° en y
   glRotatef(ra, rx, ry, rz);
   //Elipse de tamaño 6 en x y 8 en y
-  DrawEllipse(GL_LINE_LOOP, 100, 6, 8);
+  DrawEllipse(GL_LINE_LOOP, 100, 6, 8,1,1,0);
   glPopMatrix();
   //Planeta
   glPushMatrix();
@@ -420,7 +424,8 @@ void planeta7()
   //Se Rota la figura 40° en y
   glRotatef(ra, rx, ry, rz);
   //Elipse de tamaño 6 en x y 8 en y
-  DrawEllipse(GL_LINE_LOOP, 100, 6, 8);
+  glScalef(1.3, 1.3, 1.3);
+  DrawEllipse(GL_LINE_LOOP, 100, 6, 8,1,0,1);
   glPopMatrix();
   //Planeta
   glPushMatrix();
@@ -429,6 +434,7 @@ void planeta7()
   //Se Rota la figura 40° en y
   glRotatef(ra, rx, ry, rz);
   //Elipse de tamaño 6 en x y 8 en y
+  glScalef(1.3, 1.3, 1.3);
   glTranslatef(6 * std::cos(tra4+10), 0, 8 * std::sin(tra4+10));
   //Se Regresa a la rotación inicial
   glRotatef(1, 0, -1, 0);
@@ -449,6 +455,7 @@ void planeta7()
   //Se Rota la figura 40° en y
   glRotatef(ra, rx, ry, rz);
   //Elipse de tamaño 6 en x y 8 en y
+  glScalef(1.3, 1.3, 1.3);
   glTranslatef(6 * std::cos(tra4+10), 0, 8 * std::sin(tra4+10));
   //Una vez ya puesto el anillo de la luna en orbita al planeta, se rota el anillo -90° en y (Es decir 40° - 90° = -50°) y 90° en z
   glRotatef(90, 0, -1, 1);
@@ -460,6 +467,7 @@ void planeta7()
   glPushMatrix();
   glTranslatef(-1.5, 0, 0);
   glRotatef(ra, rx, ry, rz);
+  glScalef(1.3, 1.3, 1.3);
   glTranslatef(6 * std::cos(tra4+10), 0, 8 * std::sin(tra4+10));
   glRotatef(90, 0, -1, 1);
   glTranslatef(2 * std::cos(tra2), 0, 2 * std::sin(tra2));

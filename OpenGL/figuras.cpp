@@ -14,12 +14,13 @@ void DrawCircle( GLenum mode, unsigned int samples )
 }
 
 // -------------------------------------------------------------------------
-void DrawEllipse( GLenum mode, unsigned int samples,int rx,int ry )
+void DrawEllipse( GLenum mode, unsigned int samples,int rx,int ry, float r, float g, float b )
 {
   glBegin( mode );
   for( unsigned int i = 0; i < samples; ++i )
   {
     float t = _2PI * float( i ) / float( samples );
+	glColor3f(r,g,b);
     glVertex3f(rx*std::cos( t ), 0,ry*std::sin( t ) );
   } // end if
   glEnd( );

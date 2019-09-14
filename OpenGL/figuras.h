@@ -11,7 +11,7 @@
 void DrawCircle( GLenum mode, unsigned int samples );
 
 // -------------------------------------------------------------------------
-void DrawEllipse( GLenum mode, unsigned int samples,int rx,int ry );
+void DrawEllipse( GLenum mode, unsigned int samples,int rx,int ry, float r, float g, float b);
 
 // -------------------------------------------------------------------------
 void DrawUnitaryCube(GLenum mode, float r, float g, float b );
